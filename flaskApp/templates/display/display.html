@@ -23,16 +23,32 @@
     </div>
   </form>
   {% if players %}
-    {% if players[0].name %}
-      {% for player in players %}
-        <div>{{player.name}}</div>
-      {% endfor %}
-    {% elif players[0].player1 %}
-      {% for pair in players %}
-        <div>{{pair.player1.name}}</div>
-        <div>{{pair.player2.name}}</div>
-      {% endfor %}
-    {% endif %}
+    <table>
+      <thead style="display:table-header-group;">
+      <tr>
+        <th>Rank</th>
+        <th>Name(s)</th>
+        <th>Country</th>
+      </tr>
+      </thead>
+      {% if players[0].name %}
+        {% for player in players %}
+          <tr>
+            <td>{{player.rank}}</td>
+            <td>{{player.name}}</td>
+            <td>{{player.country}}</td>
+          </tr>
+        {% endfor %}
+      {% elif players[0].player1 %}
+        {% for pair in players %}
+          <tr>
+            <td>{{pair.player1.rank}}</td>
+            <td>{{pair.player1.name}}<br>{{pair.player2.name}}</td>
+            <td>{{pair.player1.country}}</td>
+          </tr>
+        {% endfor %}
+      {% endif %}
+    </table>
   {% endif %}
 
   {% block content %} {% endblock %}
