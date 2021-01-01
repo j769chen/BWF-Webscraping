@@ -1,0 +1,46 @@
+<!doctype html>
+<title>{% block title %}{% endblock %}BWF Rankings</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav>
+  <h1>BWF Rankings</h1>
+</nav>
+<section class="content">
+  <header>
+    {% block header %}Select a Discipline{% endblock %}
+  </header>
+  <form class="form-inline" method="POST">
+    <div class="form-group">
+      <div class="input-group">
+        <select name="discipline" id="disciplines">
+          <option value="MS">Men's Singles</option>
+          <option value="WS">Women's Singles</option>
+          <option value="MD">Men's Doubles</option>
+          <option value="WD">Women's Doubles</option>
+          <option value="XD">Mixed Doubles</option>
+        </select>
+      </div>
+      <button id="button" type="submit" class="btn">Go</button>
+    </div>
+  </form>
+  {% if players %}
+    {% if players[0].name %}
+      {% for player in players %}
+        <div>{{player.name}}</div>
+      {% endfor %}
+    {% elif players[0].player1 %}
+      {% for pair in players %}
+        <div>{{pair.player1.name}}</div>
+        <div>{{pair.player2.name}}</div>
+      {% endfor %}
+    {% endif %}
+  {% endif %}
+
+  {% block content %} {% endblock %}
+</section>
+
+<script type="text/javascript">
+    function test_func(data) {
+        document.getElementById("disciplines").value = data;
+    }
+    test_func({{ discipline|safe }})
+</script>
